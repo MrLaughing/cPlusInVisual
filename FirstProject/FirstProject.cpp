@@ -7,6 +7,7 @@
 using namespace std;
 int main()
 {
+	cout << "Íê³ÉÇ¨ÒÆ£¡" << endl;
 	cout << "hello world" << endl;
 	int x = 100;
 	int *f, **p;
