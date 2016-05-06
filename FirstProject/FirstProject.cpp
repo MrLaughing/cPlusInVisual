@@ -69,9 +69,49 @@ void pointToArrays() {
 	}
 	cout << endl;
 }
+/*形参和实参*/
+void sort(int *p,int n) {//实现简单选择排序
+	int i, j, k, t;
+	for (i = 0; i < n-1;i++) {
+		k = i;
+		for (j = k+1; j < n;j++) {
+			if (p[k]>p[j]) {
+				k = j;//记录位置
+			}
+		}
+		t = p[k];//交换
+		p[k] = p[i];
+		p[i] = t;
+	}
+}
+/*函数模板*/
+template<class T>
+T fun(T m,int n) {//函数的参数列表里必须含有与给定的函数模板中参数类型相同的参数。
+	return n;
+}
+/*作用域*/
+int x = 400, y = 200;
 int main()
 {
-	pointToArrays();
+	int x = 100, z = 0;
+	z = x + y;
+	cout << "第一次输出：" << z << endl;
+	{
+		int x = 200, y = 300;
+		z = x + y;
+		cout << "第二次输出：" << z << endl;
+	}
+	cout << "第三次输出：" << x + y << endl;
+	//int m = 5;
+	//cout<<fun(m,5)<<endl;
+	/*int m[8] = { 5,6,2,4,3,1 };
+	int n = 6;
+	sort(m, 6);//影响实参
+	for (int i = 0; i < 6;i++) {
+		cout <<setw(3)<<m[i];
+	}
+	cout << endl;*/
+	//pointToArrays();
 	//pointToReverse();
 	//();
 	//test();
