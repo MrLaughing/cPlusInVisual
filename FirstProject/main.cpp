@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "Rectangle.h"
 #include <iomanip>
 using namespace std;
 void test() {
@@ -161,12 +162,20 @@ typedef union un {
 } UN;
 int main()
 {
-	UN u;
+	Rectangle r1(5, 3);
+	//Rectangle r2(6, 4);
+	Rectangle r2(r1);//复制初始化构造函数
+	Rectangle r3;//r3没有初始化
+	r1.print(); r1.area(); r1.disp();
+	r2.print(); r2.area(); r2.disp();
+	r3.addarea(r1,r2);//两矩形面积之和存在了s3中
+	r3.disp1();
+	/*UN u;
 	u.m = 5;
 	u.b[0] = 65;
 	u.b[1] = 97;
 	cout <<u.m << endl;//结果是24897
-	cout << u.b << endl;//结果是Aa
+	cout << u.b << endl;//结果是Aa*/
 	/*SNode *head = creat();
 	print(head);*/
 	//dynamic();
