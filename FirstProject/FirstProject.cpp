@@ -90,10 +90,83 @@ T fun(T m,int n) {//函数的参数列表里必须含有与给定的函数模板中参数类型相同的参数
 	return n;
 }
 /*作用域*/
-int x = 400, y = 200;
+//int x = 400, y = 200;
+/*结构体声明和引用*/
+struct date
+{
+	int year, month, day;
+
+};
+/*typeof声明结构体，再用新类型名定义变量*/
+typedef struct 
+{
+	int num;
+	char name[20];
+	char sex[2];
+	date birthday;
+	float score;
+} ST;
+/*动态内存分配 new/delete*/
+void dynamic() {
+	int *f = new int[5];//动态内存分配，必须在新的表达式中指定数组大小
+	for (int i = 0; i < 5;i++) {
+		cin >> f[i];
+	}
+	for (int i = 0; i < 5;i++) {
+		cout << f[i]<<setw(3);
+	}
+	delete[5] f;//将指针变量所指的一维数组内存空间归还给系统
+}
+/*链表*/
+//首先定义一个结构体
+typedef struct Node {
+	int data;//数据域
+	struct Node *next;//指针域，存放下一个结点
+} SNode;
+/*建立单链表*/
+SNode * creat() {//创建单链表
+	SNode *head, *p, *q;//p为新增结点,q为尾结点
+	int data;
+	head = (SNode *)malloc(sizeof(SNode));//为头结点分配空间
+	q = head;
+	cin >> data;//输入结点数据
+	(*head).data = data; //head->data = data;
+	while (data !=-1) {
+		p = (SNode *)malloc(sizeof(SNode));//为新结点分配空间
+		(*q).next = p;
+		(*p).data = data;
+		q = p;
+		cin >> data;
+	}
+	(*q).next = NULL;
+	return head;
+}
+/*打印链表*/
+void print(SNode *head) {
+	SNode *p;
+	p = head->next;
+	if (p == NULL) {
+		cout << "空链表";
+	}
+	while (p != NULL)
+	{
+		cout << p->data;
+		p = p->next;
+	}
+}
+/*共用体*/
+typedef union un {
+	int m;
+	char b[2];
+} UN;
 int main()
 {
-	int x = 100, z = 0;
+	SNode *head = creat();
+	print(head);
+	//dynamic();
+	/*ST s[3], *f;//用新类型名定义变量
+	struct s1;*/
+	/*int x = 100, z = 0;
 	z = x + y;
 	cout << "第一次输出：" << z << endl;
 	{
@@ -101,7 +174,7 @@ int main()
 		z = x + y;
 		cout << "第二次输出：" << z << endl;
 	}
-	cout << "第三次输出：" << x + y << endl;
+	cout << "第三次输出：" << x + y << endl;*/
 	//int m = 5;
 	//cout<<fun(m,5)<<endl;
 	/*int m[8] = { 5,6,2,4,3,1 };
