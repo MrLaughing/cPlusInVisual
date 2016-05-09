@@ -161,8 +161,14 @@ typedef union un {
 } UN;
 int main()
 {
-	SNode *head = creat();
-	print(head);
+	UN u;
+	u.m = 5;
+	u.b[0] = 65;
+	u.b[1] = 97;
+	cout <<u.m << endl;//结果是24897
+	cout << u.b << endl;//结果是Aa
+	/*SNode *head = creat();
+	print(head);*/
 	//dynamic();
 	/*ST s[3], *f;//用新类型名定义变量
 	struct s1;*/
