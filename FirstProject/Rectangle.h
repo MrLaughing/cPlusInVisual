@@ -11,11 +11,11 @@ public:
 	Rectangle();
 	Rectangle(int length1, int width1);
 	Rectangle(Rectangle & r);//复制初始化构造函数
-	~Rectangle();
 	void print();
 	void area();
 	void addarea(Rectangle r1, Rectangle r2);
 	void disp();
 	void disp1();
+	~Rectangle();
 };
 
