@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Rectangle.h"
 #include <iomanip>
+#include <string>
 using namespace std;
 void test() {
 	int x = 100;
@@ -160,16 +161,164 @@ typedef union un {
 	int m;
 	char b[2];
 } UN;
+/*test*/
+class Clock                   //时钟类声明   
+{
+public:                       //外部接口   
+	Clock(int NewH = 0, int NewM = 0, int NewS = 0);
+	void ShowTime();
+	Clock& operator ++();     //前置单目运算符重载   
+	Clock operator ++(int);   //后置单目运算符重载   
+private:                      //私有数据成员   
+	int Hour, Minute, Second;
+};
+
+Clock::Clock(int NewH, int NewM, int NewS)
+{
+	if (0 <= NewH && NewH<24 && 0 <= NewM && NewH<60 && 0 <= NewS && NewS<60)
+	{
+		Hour = NewH;
+		Minute = NewM;
+		Second = NewS;
+	}
+	else
+		cout << "Tine error!" << endl;
+}
+
+void Clock::ShowTime()
+{
+	cout << Hour << ":" << Minute << ":" << Second << endl;
+}
+
+Clock& Clock::operator ++()  //前置单目运算符重载函数   
+{
+	Second++;
+	if (Second >= 60)
+	{
+		Second = Second - 60;
+		Minute++;
+		if (Minute >= 60)
+		{
+			Minute = Minute - 60;
+			Hour++;
+			Hour = Hour % 24;
+		}
+	}
+	return *this;
+}
+
+Clock Clock::operator ++(int)    //后置单目运算符重载   
+{
+	Clock old = *this;
+	++(*this);
+	return old;
+}
+class People
+{
+public:
+	People(char sex);//构造函数
+	People(string name, string grade, char sex, int age);
+	~People();//析构函数
+	void addage(int n);
+	int getAge();
+	void print();
+	void print1();
+
+private:
+	string name;
+	string grade;
+	const char sex;//常成员
+	static int age;//静态变量
+};
+int People::age = 0;
+People::People(char sex) :sex(sex) {}
+
+People::People(string name, string grade, char sex, int age) : sex(sex) {
+	this->name = name;
+	this->grade = grade;
+	this->age = age;
+}
+
+People::~People()
+{
+	cout << "执行People析构函数，释放空间" << endl;
+}
+
+void People::addage(int n)
+{
+	age += n;
+}
+
+int People::getAge()
+{
+	return age;
+}
+
+void People::print()
+{
+	cout << "个人信息，姓名：" + name + ",年级：" + grade + ",性别：" << sex << ",年龄：" << age << endl;
+}
+void People::print1()
+{
+	cout << "个人信息,性别：" << sex << endl;
+}
+class Boy:public People//继承People类
+{
+public:
+	Boy();
+	Boy(int height);
+	~Boy();
+	void print1() {
+		/*People:print1();*/
+		cout << "height为：" << height<<endl;
+	}
+
+private:
+	int height;//派生类单独的成员
+};	
+Boy::Boy() : People('M')//常成员这里就要初始化吗？★
+{
+}
+Boy::Boy(int height) : People('M')//常成员这里就要初始化吗？★
+{
+	this->height = height;
+}
+
+Boy::~Boy()
+{
+	cout << "执行Boy析构函数，释放空间" << endl;
+}
 int main()
 {
-	Rectangle r1(5, 3);
+	People p1('M'), p2('W'), p3("三号","三班",'M',20);
+	p1.print1();
+	p2.print1();
+	p3.print();
+	p1.addage(5);//静态变量属于类，所有对象共享
+	cout << p1.getAge();//输出25
+	Boy b1(179);
+	b1.print1();
+
+	/*Clock myClock(23, 59, 59);
+	cout << "First time output:";
+	myClock.ShowTime();
+	cout << "Show myclock++:";
+	(myClock++).ShowTime();
+	cout << "Show ++myclock:";
+	(++myClock).ShowTime();*/
+	/*结果如下：
+	First time output:23:59:59
+	Show myclock++:23:59:59
+	Show ++myclock:0:0:1*/
+
+	/*Rectangle r1(5, 3);
 	//Rectangle r2(6, 4);
 	Rectangle r2(r1);//复制初始化构造函数
 	Rectangle r3;//r3没有初始化
 	r1.print(); r1.area(); r1.disp();
 	r2.print(); r2.area(); r2.disp();
 	r3.addarea(r1,r2);//两矩形面积之和存在了s3中
-	r3.disp1();
+	r3.disp1();*/
 	/*UN u;
 	u.m = 5;
 	u.b[0] = 65;
